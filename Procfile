@@ -1,0 +1,23 @@
+web: gunicorn master:app
+
+worker: gunicorn Insert_Blood_Group.py
+worker: gunicorn Gender.py
+worker: gunicorn User_profile.py
+worker: gunicorn MarriedStatus.py
+worker: gunicorn city.py
+worker: gunicorn Login_Status.py
+worker: gunicorn Area.py
+worker: gunicorn BusinessType.py
+worker: gunicorn Specilization.py
+worker: gunicorn Services.py
+worker: gunicorn Timing.py
+worker: gunicorn WeekDay.py
+worker: gunicorn FeedBack.py
+worker: gunicorn Appoinment.py
+worker: gunicorn Token.py
+worker: gunicorn Token_No.py
+worker: gunicorn BusinessAndDoctors.py
+worker: gunicorn doctorprofile.py
+worker: gunicorn average_waittime.py
+worker: gunicorn SendEmailAll2.py
+worker: gunicorn SendSMS.py
