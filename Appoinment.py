@@ -45,7 +45,7 @@ def selectappointment(request):
                                             join new.user_profile on new.appointment.mobile = new.user_profile.mobile\
                                            join new.token_no on new.appointment.token_no=new.token_no.token_no where doctor_id='"+str(d['doctor_id'])+"' and business_id = '"+str(d['business_id'])+"'\
                                           order by new.appointment.token_no" ))
-                  return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
+                   return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
                except:
                     return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
 
