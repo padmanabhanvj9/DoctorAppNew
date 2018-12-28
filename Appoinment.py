@@ -68,7 +68,7 @@ def count(request):
            co_count = json.loads(dbget("select count(*) as checkout_count from new.appointment \
                                       where token_status='Checkout' and doctor_id='"+str(d['doctor_id'])+"' and business_id = '"+str(d['business_id'])+"'"))
            cheout_count = co_count[0]['checkout_count']
-            return(json.dumps({"Message":"Token number Counted  Sucessfully","MessageCode":"TNS","Service Status":"Success"
+           return(json.dumps({"Message":"Token number Counted  Sucessfully","MessageCode":"TNS","Service Status":"Success"
                                ,"booked_count":booked_count,"canceled_count":canceled_count,"Checked_out":cheout_count},indent=4))
      except:
           return(json.dumps({"Message":"Token number Counted Unsuccessful","Message Code":"TNUS","Service Status":"Failure"},indent=4))
