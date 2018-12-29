@@ -39,24 +39,16 @@ def tokengeneration(request):
             
        
 def selectappointment(request):
-               #try:
+               try:
                    d = request.json
                    output = json.loads(dbget("select new.token_no.*,new.appointment.*,new.user_profile.* from new.appointment \
                                             join new.user_profile on new.appointment.mobile = new.user_profile.mobile\
-<<<<<<< HEAD
                                            join new.token_no on new.appointment.token_no=new.token_no.token_no where\
                                            new.appointment.doctor_id = '"+str(d['doctor_id'])+"' and new.appointment.business_id = '"+str(d['business_id'])+"'\
                                            and new.appointment.business_date = '"+str(d['business_date'])+"' order by new.appointment.token_no" ))
                    return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
-              # except:
-                   # return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
-=======
-                                           join new.token_no on new.appointment.token_no=new.token_no.token_no where doctor_id='"+str(d['doctor_id'])+"' and business_id = '"+str(d['business_id'])+"'\
-                                          order by new.appointment.token_no" ))
-                   return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
                except:
                     return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
->>>>>>> fd6279c9196c7dc3b80f7b97725ca5be1a10d74a
 
 def updatetoken(request):
      try:
