@@ -53,7 +53,7 @@ def selectappointment(request):
                                            new.appointment.doctor_id = '"+str(d['doctor_id'])+"' and new.appointment.business_id = '"+str(d['business_id'])+"'\
                                            and new.appointment.business_date = '"+str(d['business_date'])+"' order by new.appointment.token_no" ))
                    return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
-              except:
+               except:
                     return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
 
 def updatetoken(request):
