@@ -45,9 +45,12 @@ def selectappointment(request):
                                             join new.user_profile on new.appointment.mobile = new.user_profile.mobile\
                                            join new.token_no on new.appointment.token_no=new.token_no.token_no where doctor_id='"+str(d['doctor_id'])+"' and business_id = '"+str(d['business_id'])+"'\
                                           order by new.appointment.token_no" ))
-                  return(json.dumps({"Message":"Appointments Selected Sucessfully","MessageCode":"ASS","Service Status Status":"Success","output":output},indent=4))
+                   
+                   return(json.dumps({"Message":"Appointments Selected Sucessfully",
+                                      "MessageCode":"ASS","Service Status Status":"Success",
+                                      "output":output},indent=4))
                except:
-                    return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
+                   return(json.dumps({"Message":"Appointments Selected Unsuccessful","Message Code":"ASUS","Service Status":"Failure"},indent=4))
 
 def updatetoken(request):
      try:
@@ -68,7 +71,7 @@ def count(request):
            co_count = json.loads(dbget("select count(*) as checkout_count from new.appointment \
                                       where token_status='Checkout' and doctor_id='"+str(d['doctor_id'])+"' and business_id = '"+str(d['business_id'])+"'"))
            cheout_count = co_count[0]['checkout_count']
-            return(json.dumps({"Message":"Token number Counted  Sucessfully","MessageCode":"TNS","Service Status":"Success"
+           return(json.dumps({"Message":"Token number Counted  Sucessfully","MessageCode":"TNS","Service Status":"Success"
                                ,"booked_count":booked_count,"canceled_count":canceled_count,"Checked_out":cheout_count},indent=4))
      except:
           return(json.dumps({"Message":"Token number Counted Unsuccessful","Message Code":"TNUS","Service Status":"Failure"},indent=4))

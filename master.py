@@ -48,6 +48,11 @@ from doctorprofile import updatedocspecialization
 from doctorprofile import updatedocservices
 
 
+#--------- Query Specialist ---------------
+
+from Query_Specialist import Select_Specialist
+
+
 
 
 from flask_cors import CORS
@@ -193,6 +198,11 @@ def Update_Doc_Specialization():
 def Update_Doc_Services():
     return updatedocservices(request)
 
+#--------- Query Specialist ---------------
+
+@app.route('/Select_Specialist',methods=['post'])
+def Select_Specialist_all():
+    return Select_Specialist(request)
 
 
 
@@ -200,5 +210,5 @@ def Update_Doc_Services():
 
 
 if __name__ == '__main__':
-   app.run(host="192.168.1.11",port=5000)
+   app.run(host="192.168.1.2",port=5000)
 
