@@ -37,8 +37,8 @@ def Select_BusinessandDoctors(request):
                        if k in ('business_name', 'area','address','location_lat','location_long')}
           # Get the timing based on business
           timing = json.loads(dbget("select day,start_timing,end_timing from new.timing "
-                                                        "where business_id='"+str(a['business_id'])+"'"))
-                                                        #"and doctor_id=None "))
+                                                        "where business_id='"+str(a['business_id'])+"'"
+                                                        "and doctor_id=None "))
           #print("timing",timing)
           # Loop for format timing of business profile
           for t in timing:
