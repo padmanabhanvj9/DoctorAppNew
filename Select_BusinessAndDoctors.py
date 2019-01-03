@@ -6,6 +6,7 @@ import time
 from flask import Flask,request,jsonify
 
 def Select_BusinessandDoctors(request):
+  try:
     st_time = time.time()
     d = request.json
     # Get all business profile from db dpends on county and city
@@ -129,5 +130,9 @@ def Select_BusinessandDoctors(request):
     print("spcialist", specialist)
     print("Time Taken",full_time)
     return (json.dumps(
-        {"Message": "Appointments Selected Sucessfully", "MessageCode": "ASS",
-         "Service Status Status": "Success","out":specialist}, indent=4))
+        {"Message": "Records Selected Sucessfully", "MessageCode": "RSS",
+         "Service Status Status": "Success","specialist":specialist}, indent=4))
+  except:
+      return (json.dumps(
+          {"Message": "Records Un Selected Sucessfully", "MessageCode": "RUS",
+           "Service Status Status": "Success", "specialist": specialist}, indent=4))
