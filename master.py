@@ -57,7 +57,8 @@ from SendEmailAll2 import sendemailall
 #------------Send SMS------------------#
 from SendSMS import sendsms
 
-
+#-----------select doc and bus all------
+from Select_BusinessAndDoctors import Select_BusinessandDoctors
 
 
 from flask_cors import CORS
@@ -226,7 +227,10 @@ def Sendemailall():
 def Sendsms():
     return sendsms(request)
 
-
+#-----------select doc and bus all------
+@app.route('/Select_BusinessandDoctors',methods=['POST'])
+def Select_BusinessDoctors():
+    return Select_BusinessandDoctors(request)
 
 
 
@@ -234,5 +238,5 @@ def Sendsms():
 
 
 if __name__ == '__main__':
-   app.run(host="192.168.1.11",port=5000)
+   app.run(host="192.168.1.2",port=5000)
 
