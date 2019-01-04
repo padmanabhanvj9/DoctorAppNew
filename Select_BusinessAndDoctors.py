@@ -2,7 +2,6 @@ from sqlwrapper import gensql,dbget,dbput
 import json
 from datetime import datetime
 import time
-import time
 from flask import Flask,request,jsonify
 
 def Select_BusinessandDoctors(request):
@@ -23,8 +22,20 @@ def Select_BusinessandDoctors(request):
       typeofspecialist = bus['specialist']
       index_no = specialist_type.index(typeofspecialist)
       try:
+         bus['cli_img'] = ""
+         bus.update({"cli_subimages1":"","cli_subimages2":"","cli_subimages3":""})
+         bus['cli_feedback'] = json.loads(dbget("select count(*) from new.feedback where "
+                                                "business_id='"+str(bus['business_id'])+"'"))[0]['count']
+         bus['cli_doc_count'] = json.loads(dbget("select count(*) from new.doctorinbusiness where "
+                                                 "business_id='"+str(bus['business_id'])+"'"))[0]['count']
          specialist[index_no].append(bus)
       except:
+          bus['cli_img'] = ""
+          bus.update({"cli_subimages1": "", "cli_subimages2": "", "cli_subimages3": ""})
+          bus['cli_feedback'] = json.loads(dbget("select count(*) from new.feedback where "
+                                                 "business_id='"+str(bus['business_id'])+"'"))[0]['count']
+          bus['cli_doc_count'] = json.loads(dbget("select count(*) from new.doctorinbusiness "
+                                                  "where business_id='"+str(bus['business_id'])+ "'"))[0]['count']
           specialist.append([bus])
 
     #print("sp",specialist)
@@ -37,15 +48,15 @@ def Select_BusinessandDoctors(request):
                        if k in ('business_name', 'area','address','location_lat','location_long')}
           # Get the timing based on business
           timing = json.loads(dbget("select day,start_timing,end_timing from new.timing "
-                                                        "where business_id='"+str(a['business_id'])+"'"))
-                                                        #"and doctor_id=None "))
+                                                        "where business_id='"+str(a['business_id'])+"'"
+                                                        "and doctor_id='0' "))
           #print("timing",timing)
           # Loop for format timing of business profile
           for t in timing:
               timing[timing.index(t)] = {'day':t['day'],
                                          'time':""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+"-"
                                                 ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+""}
-          new_dict['clinic_images'] = []
+          new_dict['clinic_images'] = [{"img":""},{"img":""},{"img":""}]
           new_dict['clinic_timings'] = timing
           doctorinbusiness = json.loads(dbget("select * from new.doctor_profile where "
                                               "doctor_profile_id in (select doctor_id from "
@@ -72,7 +83,7 @@ def Select_BusinessandDoctors(request):
               docinbus['doctor_details'][0]['doctor_feedback'] = json.loads(dbget("select * from new.feedback where business_id"
                                                                                 "='"+str(a['business_id'])+"'"
                                                                                 " and doctor_id='"+docinbus['doctor_profile_id']+"'"))
-              docinbus['doctor_details'][0]['doctor_clinic_img'] = [{"img":""}]
+              docinbus['doctor_details'][0]['doctor_clinic_img'] = [{"img":""},{"img":""},{"img":""}]
               docinbus['doctor_details'][0]['doctor_specialization'] = json.loads(dbget("SELECT new.specialization.* "
                                                                                         " FROM new.doctor_profile join new.doctor_specialization on"
                                                                                         " doctor_profile.doctor_profile_id = doctor_specialization.doctor_id"
@@ -131,8 +142,8 @@ def Select_BusinessandDoctors(request):
     print("Time Taken",full_time)
     return (json.dumps(
         {"Message": "Records Selected Sucessfully", "MessageCode": "RSS",
-         "Service Status Status": "Success","specialist":specialist}, indent=4))
+         "Service Status": "Success","specialist":specialist}, indent=4))
   except:
       return (json.dumps(
           {"Message": "Records Un Selected Sucessfully", "MessageCode": "RUS",
-           "Service Status Status": "Success", "specialist": specialist}, indent=4))
+           "Service Status": "Success", "specialist": specialist}, indent=4))
