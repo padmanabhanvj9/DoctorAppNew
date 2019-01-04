@@ -12,6 +12,7 @@ from Appoinment import selectappointment
 from Appoinment import updatetoken
 from Appoinment import count
 from Appoinment import livefeed
+from Appoinment import average_waiting_time
 
 #-----------------Specialization-------------------#
 from Specialization import insertspecialization
@@ -100,7 +101,10 @@ def Count():
 @app.route('/livefeed',methods=['post'])
 def Livefeed():
     return livefeed(request)
-
+@app.route('/Average_waittime',methods=['post'])
+def Waittime():
+    return average_waiting_time(request)
+'''
 #---------------Business And Doctors-----------------------#
 @app.route('/insert_BusinessAndDoctors',methods=['post'])
 def insert_BusAndDocs():
@@ -111,7 +115,7 @@ def Select_BusAndDocs():
 @app.route('/select_BusinessAndDoctorsprofile',methods=['post'])
 def Select_BusAndDocsprofile():
     return select_BusinessAndDoctorsprofile()
-
+'''
 #--------------Specialization------------------------------#
 
 @app.route('/Insert_Specialization',methods=['POST'])
