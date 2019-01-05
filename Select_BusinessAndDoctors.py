@@ -57,7 +57,8 @@ def Select_BusinessandDoctors(request):
           for t in timing:
               timing[timing.index(t)] = {'day':t['day'],
                                          'morning':""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+"-"
-                                                ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+""}
+                                                ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+""
+                                                ,'evening':''}
           new_dict['clinic_images'] = [{"img":""},{"img":""},{"img":""}]
           new_dict['clinic_timings'] = timing
           doctorinbusiness = json.loads(dbget("select * from new.doctor_profile where "
@@ -67,6 +68,10 @@ def Select_BusinessandDoctors(request):
           # Doctor details inside the business details
           for docinbus in doctorinbusiness:
               docinbus['doc_img'] = ""
+              docinbus['doc_available_date'] = "Fri,13 Dec"
+              docinbus['doc_available_location'] = ""
+              docinbus['doc_hospital'] = ""
+
               docinbus['doctor_details'] = [docinbus.copy()]
               doc_timing = json.loads(dbget("select day,start_timing,end_timing from new.timing "
                                         " where business_id='"+str(a['business_id'])+"'"
@@ -77,7 +82,8 @@ def Select_BusinessandDoctors(request):
                   #print("t",t,type(t))
                   doc_timing[doc_timing.index(t)] = {'day': t['day'],
                                                  'morning': ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+"-"
-                                                         ""+datetime.strptime(t['start_timing'],"%H:%M").strftime("%I:%M %p")+""}
+                                                 ""+datetime.strptime(t['start_timing'],"%H:%M").strftime("%I:%M %p")+""
+                                                 ,'evening':''}
                   #print("doc_timing", doc_timing,type(doc_timing))
               docinbus['doctor_details'][0]['doctorstimings'] = doc_timing
 
