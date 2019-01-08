@@ -56,9 +56,9 @@ def Select_BusinessandDoctors(request):
           # Loop for format timing of business profile
           for t in timing:
               timing[timing.index(t)] = {'day':t['day'],
-                                         'morning':""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+"-"
-                                                ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+""
-                                                ,'evening':''}
+                                         'timing':""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+"-"
+                                                ""+datetime.strptime(t['start_timing'], "%H:%M").strftime("%I:%M %p")+""}
+                                                #,'evening':''}
           new_dict['clinic_images'] = [{"img":""},{"img":""},{"img":""}]
           new_dict['clinic_timings'] = timing
           doctorinbusiness = json.loads(dbget("select * from new.doctor_profile where "
@@ -71,6 +71,7 @@ def Select_BusinessandDoctors(request):
               docinbus['doc_available_date'] = "Fri,13 Dec"
               docinbus['doc_available_location'] = ""
               docinbus['doc_hospital'] = ""
+              docinbus['doc_feedback'] = ""
 
               docinbus['doctor_details'] = [docinbus.copy()]
               doc_timing = json.loads(dbget("select day,start_timing,end_timing from new.timing "
