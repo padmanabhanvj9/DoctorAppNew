@@ -1,11 +1,9 @@
 from flask import Flask,request,jsonify
-
 #---------userprofile--------#
 from User_Profile import insertuser_profile
 from User_Profile import updateuser_profile
 from User_Profile import selectuser_profile
 from User_Profile import deleteuser_profile
-
 #---------appionment-------#
 from Appoinment import tokengeneration
 from Appoinment import selectappointment
@@ -13,28 +11,22 @@ from Appoinment import updatetoken
 from Appoinment import count
 from Appoinment import livefeed
 from Appoinment import average_waiting_time
-
 #-----------------Specialization-------------------#
 from Specialization import insertspecialization
 from Specialization import updatespecialization
 from Specialization import selectspecialization
 from Specialization import deletespecialization
-
 #------------------Services-------------------------#
 from Services import insertservices
 from Services import updateservices
 from Services import selectservices
 from Services import deleteservices
-
 #--------------timing---------#
-
 from Timing  import Insert_Timing
 from Timing  import Select_Timing
 from Timing  import Update_Timing
 from Timing  import Delete_Timing
-
 #------------feed_back---------#
-
 from FeedBack  import Insert_FeedBack
 from FeedBack  import Select_FeedBack
 from FeedBack  import Update_FeedBack
@@ -47,17 +39,25 @@ from doctorprofile import update_doctorprofile
 from doctorprofile import update_businessanddoctors
 from doctorprofile import updatedocspecialization
 from doctorprofile import updatedocservices
-
 #---------country--------#
 from country import Insert_Country
 from country import Select_Country
 from country import Update_Country
+#------------appoinment_reason-------#
+from appoinmentreason import Insertappointmentreason
+from appoinmentreason import selectappointmentreason
+from appoinmentreason import updateappointmentreason
+from appoinmentreason import deleteappointmentreason
+#--------------city------------------#
+from city import InsertCity
+from city import SelectCity
+from city import UpdateCity
+from city import deleteCity
 #---------------Send Email----------------#
-from SendEmailAll2 import sendemailall
-
+from SendEmailAll import callFn
+from SendEmail import callfn
 #------------Send SMS------------------#
 from SendSMS import sendsms
-
 #-----------select doc and bus all------
 from Select_BusinessAndDoctors import Select_BusinessandDoctors
 
@@ -68,9 +68,6 @@ CORS(app)
 @app.route("/")
 def index():
     return "Welcome to dopctorapp"
-
-
-
 #----------------Userprofile---------------------------
 @app.route('/Insert_User_Profile',methods=['POST'])
 def Insertuser_profile():
@@ -104,9 +101,9 @@ def Livefeed():
 @app.route('/Average_waittime',methods=['post'])
 def Waittime():
     return average_waiting_time(request)
-'''
+
 #---------------Business And Doctors-----------------------#
-@app.route('/insert_BusinessAndDoctors',methods=['post'])
+'''@app.route('/insert_BusinessAndDoctors',methods=['post'])
 def insert_BusAndDocs():
     return insert_BusinessAndDoctors(request)
 @app.route('/select_BusinessAndDoctors',methods=['post'])
@@ -218,13 +215,41 @@ def selectcountry():
 @app.route('/Update_Country',methods=['post'])
 def updatecountry():
     return Update_Country(request)
-
-
-
+#-----------appoinment_reason-------#
+@app.route('/Insert_appointment_reason',methods=['post'])
+def insert_appointmentreason():
+    return Insertappointmentreason(request)
+@app.route('/Select_appoinment_reason',methods=['post'])
+def select_appointmentreason():
+    return selectappointmentreason(request)
+@app.route('/Update_appoinment_reason',methods=['post'])
+def update_appointmentreason():
+    return updateappointmentreason(request)
+@app.route('/delete_appoinment_reason',methods=['post'])
+def delete_appointmentreason():
+    return deleteappointmentreason(request)
+#------------------------city-----------------------#
+@app.route('/Insert_city',methods=['post'])
+def Insert_city():
+    return InsertCity(request)
+@app.route('/Update_city',methods=['post'])
+def Update_city():
+    return UpdateCity(request)
+@app.route('/Select_city',methods=['post'])
+def Select_city():
+    return SelectCity(request)
+@app.route('/delect_city',methods=['post'])
+def delete_City():
+    return deleteCity(request)
 #-----------------Send Email-----------------#
-@app.route('/SendEmailall',methods=['post'])
+@app.route('/SendEmailAll',methods=['post'])
 def Sendemailall():
-    return sendemailall(request)
+    return callFn(request)
+
+@app.route('/SendEmail',methods=['post'])
+def Sendemail():
+    return callfn(request)
+
 
 #-------------------Send SMS------------------#
 @app.route('/SendSMS',methods=['GET'])
@@ -242,5 +267,5 @@ def Select_BusinessDoctors():
 
 
 if __name__ == '__main__':
-   app.run(host="192.168.1.2",port=5000)
+   app.run(host="192.168.1.11",port=5000)
 

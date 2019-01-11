@@ -47,10 +47,10 @@ def sendsms(request):
                 the_page = str(the_page)
         con.close()
 
-        return (json.dumps({"Message": "Sms Sent Successfully", "Message Code": "SSS", "Service Status": "Success"},
+        return (json.dumps({"Message": "Sms Sent Successfully", "Message_Code": "SSS", "Service_Status": "Success"},
                            indent=2))
 
     except:
-        return (json.dumps({"Message": "Sms Sent UnSuccessfully", "Message Code": "SSUS", "Service Status": "Failure"},
+        return (json.dumps({"Message": "Sms Sent UnSuccessfully", "Message_Code": "SSUS", "Service_Status": "Failure"},
                            indent=2))
 
